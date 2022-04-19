@@ -1,0 +1,15 @@
+---
+  
+  - hosts: all
+    become: true
+    tasks:
+    
+    - name: Bu gorev apache2 yuklemesini kaldirir.
+      apt:
+        name: apache2
+        state: absent  
+    
+    - name: Bu gorev apache php kutuphanesini kaldirir.
+      apt:
+        name: libapache2-mod-php
+        state: absent

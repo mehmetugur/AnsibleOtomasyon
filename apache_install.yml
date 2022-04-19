@@ -1,0 +1,17 @@
+---
+  
+  - hosts: all
+    become: true
+    tasks:
+    - name: Bu gorev apt paket index'ini gunceller
+      apt:
+        update_cache: yes
+
+    - name: Bu gorev apache2 yuklemesini gerceklestirir.
+      apt:
+        name: apache2
+        state: latest  
+    - name: Bu gorev apache php kutuphanesinin yuklemesini gerceklestirir.
+      apt:
+        name: libapache2-mod-php
+        state: latest
