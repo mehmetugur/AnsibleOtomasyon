@@ -3,15 +3,38 @@
   - hosts: all
     become: true
     tasks:
-    - name: Bu gorev apt paket index'ini gunceller
+# Bu gorevler, Debian & Ubuntu tabanli sunucular icin    
+    - name: Bu gorev Ubuntu apt paket index'ini gunceller
       apt:
         update_cache: yes
+      when: ansible_distribution == "Ubuntu"
 
-    - name: Bu gorev apache2 yuklemesini gerceklestirir.
+    - name: Bu gorev Ubuntu Web Sunucu yuklemesini gerceklestirir.
       apt:
         name: apache2
         state: latest  
-    - name: Bu gorev apache php kutuphanesinin yuklemesini gerceklestirir.
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Bu gorev Ubuntu apache php kutuphanesinin yuklemesini gerceklestirir.
       apt:
         name: libapache2-mod-php
         state: latest
+      when: ansible_distribution == "Ubuntu"
+
+# Bu gorevler, Redhat & Rocky Linux tabali sunucular icin    
+    - name: Bu gorev Rocky Linux dnf paket index'ini gunceller
+      dnf:
+        update_cache: yes
+      when: ansible_distribution == "Rocky"
+
+    - name: Bu gorev Rocky Linux Apache Web sunucu yukler.
+      dnf:
+        name: httpd
+        state: latest  
+      when: ansible_distribution == "Rocky"
+
+    - name: Bu gorev apache icin php kutuphanesinin yuklemesini gerceklestirir.
+      dnf:
+        name: php
+        state: latest
+      when: ansible_distribution == "Rocky"
