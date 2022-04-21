@@ -1,0 +1,4 @@
+---
+apache_sunucusu: apache2
+php_kutuphane: libapache2-mod-php
+

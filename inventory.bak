@@ -1,0 +1,4 @@
+172.20.230.241  apache_sunucusu=apache2 php_kutuphane=libapache2-mod-php
+172.20.230.242  apache_sunucusu=apache2 php_kutuphane=libapache2-mod-php
+172.20.230.243  apache_sunucusu=apache2 php_kutuphane=libapache2-mod-php
+172.20.230.244  apache_sunucusu=httpd php_kutuphane=php
