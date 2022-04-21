@@ -5,6 +5,8 @@ Ubuntu:
 apt
 Degiskenler
 apache_sunucusu=apache2 php_kutuphane=libapache2-mod-php
+db_sunucusu=mariadb
+ftp_sunucusu=vsftp
 
 Rocky:
 dnf

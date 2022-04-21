@@ -4,12 +4,18 @@
     become: true
     tasks:
     
-    - name: Bu gorev apache2 yuklemesini kaldirir.
+    - name: Bu gorev Ubuntu'dan apache ve php kutuphanesini kaldirir.
       apt:
-        name: apache2
-        state: absent  
-    
-    - name: Bu gorev apache php kutuphanesini kaldirir.
-      apt:
-        name: libapache2-mod-php
+        name: 
+          - apache2
+          - libapache2-mod-php
         state: absent
+      when: ansible_distribution == "Ubuntu"  
+    
+    - name: Bu gorev Rocky Linux apache ve php kutuphanesini kaldirir.
+      dnf:
+        name: 
+          - httpd
+          - php
+        state: absent
+      when: ansible_distribution == "Rocky"

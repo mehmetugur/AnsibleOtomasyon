@@ -1,0 +1,98 @@
+---
+
+  - hosts: all
+    become: true
+    tasks:
+
+#Bu gorev, sunucu guncellemeleri icin hazirlanmistir.
+    - name: Bu gorev, Ubuntu Linux Update & Upgrade islemlerini gerceklestirir.
+      ansible.builtin.package:
+        upgrade: dist   #Ubuntu Linux dist-upgrade
+        update_cache: yes #Ubuntu Linux cache update source list update
+      when: ansible_distribution == "Ubuntu"    
+
+    - name: Bu gorev, Rocky Linux Update & Upgrade İşlemlerini gerçekleştirir.
+      ansible.builtin.package:
+        update_only: yes  #Rocky Linux upgrade
+        update_cache: yes #Rocky Linux Update
+      when: ansible_distribution == "Rocky"
+# Bu gorev, Ubuntu & Rocky Linux icin Apache & PHP kutuphanesini yukler.
+  - hosts: web_sunuculari
+    become: true
+    tasks:
+
+    - name: İşletim sistemlerini kontrol et. Multi variable display
+   #   debug: var=ansible_os_family
+      debug:
+        msg: 
+        - Ansible OS Family is {{ ansible_os_family }} 
+        - Ansible Distribution is {{ ansible_distribution }}
+        - Invertory Host is {{ inventory_hostname }}
+
+    - name: Dosyalardan değişkenleri oku.     
+      include_vars: "{{ lookup('first_found', params) }}"
+      vars: 
+        params:
+          files:
+            - "vars/apache_{{ ansible_os_family}}.yml"
+            - "vars/apache_varsayilan.yml"
+    - name: Bu görev, Ubuntu & Rocky Linux'lere Apache & PHP kütüphanesi yükler.
+      ansible.builtin.package:
+        name: 
+          - "{{ apache_sunucusu }}"
+          - "{{ php_kutuphane }}"
+        state: latest
+
+# Bu gorev, Ubuntu Linux sunucusuna Mariadb yukler.
+  - hosts: veritabani_sunucusu
+    become: true
+    tasks:
+
+    - name: İşletim sistemlerini kontrol et. Multi variable display
+   #   debug: var=ansible_os_family
+      debug:
+        msg: 
+        - Ansible OS Family is {{ ansible_os_family }} 
+        - Ansible Distribution is {{ ansible_distribution }}
+        - Invertory Host is {{ inventory_hostname }}
+
+    - name: Dosyalardan değişkenleri oku.     
+      include_vars: "{{ lookup('first_found', params) }}"
+      vars: 
+        params:
+          files:
+            - "vars/apache_{{ ansible_os_family}}.yml"
+            - "vars/apache_varsayilan.yml"
+    - name: Bu görev, Ubuntu Linux Sunucusuna Mariadb yükler.
+      ansible.builtin.package:
+        name: 
+          - "{{ db_sunucusu }}"
+        state: latest
+
+# Bu gorev, Ubuntu Linux sunucusuna ftp yukler.
+  - hosts: ftp_sunucusu
+    become: true
+    tasks:
+
+    - name: İşletim sistemlerini kontrol et. Multi variable display
+   #   debug: var=ansible_os_family
+      debug:
+        msg: 
+        - Ansible OS Family is {{ ansible_os_family }} 
+        - Ansible Distribution is {{ ansible_distribution }}
+        - Invertory Host is {{ inventory_hostname }}
+
+    - name: Dosyalardan değişkenleri oku.     
+      include_vars: "{{ lookup('first_found', params) }}"
+      vars: 
+        params:
+          files:
+            - "vars/apache_{{ ansible_os_family}}.yml"
+            - "vars/apache_varsayilan.yml"
+    - name: Bu görev, Ubuntu Linux sunucusuna ftp servisini yükler.
+      ansible.builtin.package:
+        name: 
+          - "{{ ftp_sunucusu }}"
+        state: latest
+
+
