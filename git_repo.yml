@@ -1,0 +1,21 @@
+---
+  - hosts: Ansible_Controller
+    connection: local
+    vars:
+      - repo: "https://github.com/techakademi/Yenisite.git"
+      - hedefklasor: /home/ansible/Prod_Proje
+    become: true
+    tasks:
+      - name: Bu gorev, Gitrepo'dan projenin kaynagini download eder.
+        git:
+          repo: "{{ repo }}"
+          dest: "{{ hedefklasor }}"
+          
+    
+      - name: Bu gorev, Gitrepo'dan indirilen proje belgelerini listeler.
+        find: 
+          paths: "{{ hedefklasor }}"
+        register: liste
+
+        
+
