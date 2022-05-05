@@ -2,7 +2,8 @@
   - hosts: Ansible_Controller
     connection: local
     vars:
-      - repo: "https://github.com/techakademi/Yenisite.git"
+   #   - repo: "https://github.com/techakademi/Yenisite.git"
+      - repo: "https://github.com/mehmetugur/Yenisite.git"
       - hedefklasor: /home/ansible/Prod_Proje
     become: true
     tasks:
