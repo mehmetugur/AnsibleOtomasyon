@@ -4,10 +4,12 @@
 Ubuntu:
 apt
 Degiskenler
-apache_sunucusu=apache2 php_kutuphane=libapache2-mod-php
+apache_sunucusu=apache2 
+php_kutuphane=libapache2-mod-php
 db_sunucusu=mariadb
 ftp_sunucusu=vsftp
-
+apache2
 Rocky:
 dnf
 apache_sunucusu=httpd php_kutuphane=php
+httpd

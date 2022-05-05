@@ -10,12 +10,21 @@
         git:
           repo: "{{ repo }}"
           dest: "{{ hedefklasor }}"
+          force: yes
           
     
       - name: Bu gorev, Gitrepo'dan indirilen proje belgelerini listeler.
         find: 
           paths: "{{ hedefklasor }}"
         register: liste
-
         
+      - name: Print variable contents
+        debug:
+          var: item.path
+        with_items: "{{ liste.files }}"
+            
+      - name: Display all variables/facts known for a host
+        debug:
+          var: hostvars[inventory_hostname]
+          verbosity: 4  
 

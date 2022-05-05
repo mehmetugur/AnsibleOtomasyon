@@ -1,3 +1,6 @@
+[Ansible_Controller]
+172.20.230.240
+
 [web_sunuculari]
 172.20.230.241  
 172.20.230.244 
